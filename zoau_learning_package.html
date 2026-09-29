@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZOAU Complete Learning Package - Beginner to Advanced</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1e40af;
+            --secondary: #0f766e;
+            --accent: #ea580c;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --code-bg: #1e293b;
+            --code-text: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .progress-dot:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .progress-dot.active {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        /* Sidebar Navigation */
+        .main-wrapper {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+        }
+
+        aside {
+            position: sticky;
+            top: 200px;
+            height: fit-content;
+        }
+
+        .sidebar-nav {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-nav h3 {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            font-size: 1.1em;
+            margin: 0;
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+        }
+
+        .sidebar-nav li {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sidebar-nav li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar-nav a {
+            display: block;
+            padding: 15px 20px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+
+        .sidebar-nav a:hover,
+        .sidebar-nav a.active {
+            background: var(--light);
+            border-left-color: var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Main Content */
+        .content {
+            background: white;
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .module {
+            display: none;
+        }
+
+        .module.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .module-header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .module-header h2 {
+            font-size: 2em;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .module-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.95em;
+            color: #6b7280;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h3 {
+            color: var(--primary);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .section h4 {
+            color: var(--secondary);
+            font-size: 1.2em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-text);
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+            border-left: 4px solid var(--accent);
+        }
+
+        .code-block code {
+            background: none;
+            padding: 0;
+            color: var(--code-text);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            line-height: 1.8;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: var(--primary);
+            color: white;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tbody tr:hover {
+            background: var(--light);
+        }
+
+        /* Callout Boxes */
+        .callout {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid;
+        }
+
+        .callout.tip {
+            background: #f0fdf4;
+            border-left-color: var(--success);
+        }
+
+        .callout.tip strong {
+            color: var(--success);
+        }
+
+        .callout.warning {
+            background: #fffbeb;
+            border-left-color: var(--warning);
+        }
+
+        .callout.warning strong {
+            color: var(--warning);
+        }
+
+        .callout.error {
+            background: #fef2f2;
+            border-left-color: var(--error);
+        }
+
+        .callout.error strong {
+            color: var(--error);
+        }
+
+        .callout.info {
+            background: #eff6ff;
+            border-left-color: var(--primary);
+        }
+
+        .callout.info strong {
+            color: var(--primary);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .checklist li {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding-left: 20px;
+        }
+
+        .checklist li::before {
+            content: "☐ ";
+            margin-right: 10px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Badge */
+        .badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        .badge.beginner {
+            background: #dbeafe;
+            color: var(--primary);
+        }
+
+        .badge.intermediate {
+            background: #dcfce7;
+            color: var(--success);
+        }
+
+        .badge.advanced {
+            background: #fed7aa;
+            color: #b45309;
+        }
+
+        /* Button */
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            transition: all 0.3s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background: #1e3a8a;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+        .btn.secondary {
+            background: var(--secondary);
+        }
+
+        .btn.secondary:hover {
+            background: #0d5a52;
+        }
+
+        .btn.success {
+            background: var(--success);
+        }
+
+        .btn.success:hover {
+            background: #059669;
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .toc h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .toc ul {
+            margin-left: 20px;
+        }
+
+        .toc a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .toc a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        /* Print Styles */
+        @media print {
+            header {
+                position: static;
+            }
+
+            .main-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                display: none;
+            }
+
+            .progress-indicator {
+                display: none;
+            }
+
+            .module {
+                display: block !important;
+                page-break-after: always;
+            }
+
+            footer {
+                break-inside: avoid;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .main-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            aside {
+                position: static;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .progress-indicator {
+                gap: 10px;
+            }
+
+            .progress-dot {
+                width: 40px;
+                height: 40px;
+                font-size: 0.8em;
+            }
+
+            .code-block {
+                font-size: 0.85em;
+                padding: 15px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .success-icon {
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .error-icon {
+            color: var(--error);
+            font-weight: bold;
+        }
+
+        /* Learning Path Indicator */
+        .learning-path {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .path-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .path-step.active {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .path-arrow {
+            color: #9ca3af;
+            font-size: 1.2em;
+        }
+
+        .path-step.active .path-arrow {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <h1>🚀 ZOAU Complete Learning Package</h1>
+            <p>From Beginner to Advanced: Master Mainframe Automation with Python</p>
+            <div class="progress-indicator">
+                <div class="progress-dot active" onclick="switchModule(0)">1<br><small>Intro</small></div>
+                <div class="progress-dot" onclick="switchModule(1)">2<br><small>Day 1</small></div>
+                <div class="progress-dot" onclick="switchModule(2)">3<br><small>Jobs</small></div>
+                <div class="progress-dot" onclick="switchModule(3)">4<br><small>Data</small></div>
+                <div class="progress-dot" onclick="switchModule(4)">5<br><small>Next</small></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <aside>
+            <nav class="sidebar-nav">
+                <h3>📚 Learning Path</h3>
+                <ul>
+                    <li><a href="#" class="nav-link active" onclick="switchModule(0); return false;">1. ZOAU Beginners</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchModule(1); return false;">2. Day 1 Hands-On</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchModule(2); return false;">3. Job Automation</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchModule(3); return false;">4. Data Handling</a></li>
+                    <li><a href="#" class="nav-link" onclick="switchModule(4); return false;">5. What's Next</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="content">
+            <!-- Module 1: Beginner Overview -->
+            <div class="module active" id="module-0">
+                <div class="module-header">
+                    <h2>Module 1: ZOAU for Beginners</h2>
+                    <div class="module-meta">
+                        <span class="meta-item"><span class="badge beginner">Beginner</span></span>
+                        <span class="meta-item">⏱️ 15 minutes read</span>
+                        <span class="meta-item">🎯 Understand what ZOAU does</span>
+                    </div>
+                </div>
+
+                <div class="learning-path">
+                    <div class="path-step active">Start Here</div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">Learn Concepts</div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">Hands-On Practice</div>
+                    <div class="path-arrow">→</div>
+                    <div class="path-step">Build Projects</div>
+                </div>
+
+                <div class="section">
+                    <h3>What is ZOAU?</h3>
+                    <p>If you're new to mainframe development, here's the reality: z/OS is powerful but uses older languages (JCL, COBOL, Rexx) for automation. <span class="highlight">ZOAU bridges that gap by giving Python developers a native interface to z/OS operations.</span></p>
+                    
+                    <div class="callout tip">
+                        <strong>💡 Think of it as:</strong> A universal remote for your mainframe. Control z/OS systems directly from Python instead of wrestling with legacy scripts.
+                    </div>
+
+                    <h4>Why Care About ZOAU?</h4>
+                    <ul>
+                        <li><strong>Build modern automation</strong> using Python (not JCL or Rexx)</li>
+                        <li><strong>Reduce manual tasks</strong> that waste hours every week</li>
+                        <li><strong>Integrate mainframe workflows</strong> with cloud/DevOps tools</li>
+                        <li><strong>Write cleaner code</strong> than legacy scripting languages</li>
+                        <li><strong>Enable self-healing systems</strong> with automated retries and alerts</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>The 10 Core Capabilities</h3>
+                    
+                    <div class="callout info">
+                        <strong>📌 Note:</strong> ZOAU has 40+ features across 10 categories. We'll focus on these foundational ones.
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Capability</th>
+                                <th>What It Does</th>
+                                <th>When You Use It</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Core z/OS Ops</strong></td>
+                                <td>Create, read, write, delete datasets</td>
+                                <td>Daily file operations</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Job Automation</strong></td>
+                                <td>Submit JCL, monitor status, capture output</td>
+                                <td>Running mainframe jobs from Python</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Data Conversion</strong></td>
+                                <td>EBCDIC ↔ ASCII transformation</td>
+                                <td>Reading mainframe data into analytics</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Advanced Datasets</strong></td>
+                                <td>VSAM, GDG, IDCAMS operations</td>
+                                <td>Complex data structure management</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Automation & Scheduling</strong></td>
+                                <td>Run unattended, chain steps, retry failures</td>
+                                <td>Building reliable production pipelines</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reliability</strong></td>
+                                <td>Dry-run mode, confirmation gates, error handling</td>
+                                <td>Preventing mistakes in production</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Transparency</strong></td>
+                                <td>Detailed logging of every operation</td>
+                                <td>Debugging & compliance audits</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Monitoring & Alerts</strong></td>
+                                <td>Health checks, notifications (Slack, email)</td>
+                                <td>Knowing when things break (before your boss calls)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Access & Extensibility</strong></td>
+                                <td>CLI, REST endpoints, config-driven access control</td>
+                                <td>Making mainframe automation accessible to everyone</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Testing & Validation</strong></td>
+                                <td>Automated test harness, provision/teardown</td>
+                                <td>Building confidence before production deploy</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>Before & After: Real Impact</h3>
+                    
+                    <h4>The Old Way (Manual + Shell Scripts)</h4>
+                    <div class="code-block"><code>#!/bin/bash
+# Painful: multiple files, manual parsing, error-prone
+submit_job.sh
+sleep 30
+poll_status.sh
+if [[ $status == "COMPLETED" ]]; then
+  extract_spool.sh | grep "SUCCESS"
+else
+  send_alert.sh
+fi</code></div>
+
+                    <h4>The ZOAU Way (Python)</h4>
+                    <div class="code-block"><code>#!/usr/bin/env python3
+from zoau import MVSCmd, Jobs
+
+# Submit job and wait
+job = MVSCmd.submit_job(jcl)
+status = Jobs.wait_for_job(job, timeout=300)
+
+# Check result
+if status == 'CC 0':
+    output = Jobs.get_job_output(job)
+    print(f"Success: {output}")
+else:
+    send_alert('Job failed', status)</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ Benefits:</strong> One file, natural flow, obvious error handling, testable, maintainable.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Who Should Learn ZOAU?</h3>
+                    <ul>
+                        <li>✅ Mainframe developers expanding into Python</li>
+                        <li>✅ DevOps engineers managing z/OS systems</li>
+                        <li>✅ Python developers asked to "do something with the mainframe"</li>
+                        <li>✅ Anyone automating repetitive mainframe tasks</li>
+                        <li>✅ Teams moving to cloud/hybrid architectures</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Your Learning Path</h3>
+                    <div class="checklist">
+                        <li>Understand what ZOAU can do (you are here ✓)</li>
+                        <li>Get your hands dirty with Day 1 hands-on guide</li>
+                        <li>Learn job automation patterns and best practices</li>
+                        <li>Master data handling (EBCDIC to pandas)</li>
+                        <li>Build your first production pipeline</li>
+                    </div>
+                </div>
+
+                <div class="section text-center mt-20">
+                    <button class="btn secondary" onclick="switchModule(1)">Next: Day 1 Hands-On →</button>
+                </div>
+            </div>
+
+            <!-- Module 2: Day 1 Hands-On -->
+            <div class="module" id="module-1">
+                <div class="module-header">
+                    <h2>Module 2: Day 1 Hands-On Guide</h2>
+                    <div class="module-meta">
+                        <span class="meta-item"><span class="badge beginner">Beginner</span></span>
+                        <span class="meta-item">⏱️ 30 minutes</span>
+                        <span class="meta-item">🎯 Submit your first job</span>
+                    </div>
+                </div>
+
+                <div class="callout warning">
+                    <strong>⚡ Goal:</strong> By the end of this module, you'll submit a real JCL job from Python and capture the output. No theory. Just working code.
+                </div>
+
+                <div class="section">
+                    <h3>Part 1: Check Your Environment (5 min)</h3>
+
+                    <h4>Step 1a: Verify z/OS Access</h4>
+                    <div class="code-block"><code># From your laptop
+ssh userid@mainframe.company.com
+
+# You should see a z/OS login (USS prompt or ISPF menu)
+# Type: exit
+# Back on your laptop</code></div>
+
+                    <p>✓ <strong>What this proves:</strong> You have network access to z/OS.</p>
+
+                    <h4>Step 1b: Check Your Python Version</h4>
+                    <div class="code-block"><code>python3 --version
+
+# Expected output:
+# Python 3.9.x or newer</code></div>
+
+                    <p>✓ <strong>What this proves:</strong> You have a compatible Python runtime.</p>
+
+                    <h4>Step 1c: Check Your z/OS Credentials</h4>
+                    <div class="code-block"><code># In USS on z/OS, try submitting a simple JCL job
+cat > /tmp/test.jcl << 'EOF'
+//TESTJOB JOB (ACCT),'TEST',CLASS=A,MSGCLASS=H
+//STEP1 EXEC PGM=IEFBR14
+EOF
+
+submit /tmp/test.jcl
+
+# You should see a job ID back:
+# JOB12345 SUBMITTED</code></div>
+
+                    <p>✓ <strong>What this proves:</strong> Your account can submit jobs.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Part 2: Install ZOAU (5 min)</h3>
+
+                    <h4>Step 2a: Install via pip</h4>
+                    <div class="code-block"><code>pip install zoau
+
+# Expected output:
+# Successfully installed zoau-x.x.x</code></div>
+
+                    <h4>Step 2b: Verify Installation</h4>
+                    <div class="code-block"><code>python3 -c "import zoau; print(zoau.__version__)"
+
+# Expected output:
+# 1.2.3 (or similar version number)</code></div>
+
+                    <p>✓ <strong>What this proves:</strong> ZOAU is installed and importable.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Part 3: Your First Script (10 min)</h3>
+
+                    <h4>Step 3a: Create the Script File</h4>
+                    <div class="code-block"><code>cat > ~/submit_first_job.py << 'EOF'
+#!/usr/bin/env python3
+"""
+My first ZOAU script: Submit a simple JCL job
+"""
+
+from zoau import MVSCmd
+
+# Define a simple JCL job
+jcl = """
+//MYFIRST JOB (ACCT),'MY FIRST JOB',CLASS=A,MSGCLASS=H
+//STEP1 EXEC PGM=IEFBR14
+"""
+
+# Submit the job
+print("Submitting job...")
+job_id = MVSCmd.submit_job(jcl)
+print(f"Job submitted! Job ID: {job_id}")
+
+EOF</code></div>
+
+                    <h4>Step 3b: Run It</h4>
+                    <div class="code-block"><code>chmod +x ~/submit_first_job.py
+python3 ~/submit_first_job.py
+
+# Expected output:
+# Submitting job...
+# Job submitted! Job ID: JOB12345</code></div>
+
+                    <div class="callout success">
+                        <strong>🎉 You just submitted your first job from Python!</strong>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Part 4: Wait & Capture Output</h3>
+
+                    <h4>Enhance the script to wait and check results</h4>
+                    <div class="code-block"><code>cat > ~/submit_and_wait.py << 'EOF'
+#!/usr/bin/env python3
+from zoau import MVSCmd, Jobs
+
+jcl = """
+//MYJOB JOB (ACCT),'MY JOB',CLASS=A,MSGCLASS=H
+//STEP1 EXEC PGM=IEFBR14
+"""
+
+print("Submitting job...")
+job_id = MVSCmd.submit_job(jcl)
+print(f"Job ID: {job_id}")
+
+print("Waiting for job to complete...")
+status = Jobs.wait_for_job(job_id, max_wait_time=300)
+
+print(f"Job completed with status: {status}")
+
+if status == 'CC 0':
+    print("✓ Success!")
+else:
+    print(f"⚠ Job did not complete with CC 0. Status: {status}")
+
+EOF
+
+python3 ~/submit_and_wait.py</code></div>
+
+                    <p>✓ <strong>What this proves:</strong> You can submit and monitor a job.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Day 1 Checklist: Complete?</h3>
+                    <div class="checklist">
+                        <li>SSH to z/OS works</li>
+                        <li>Python 3.7+ installed</li>
+                        <li>Can submit jobs manually</li>
+                        <li>ZOAU installed successfully</li>
+                        <li>First script runs (submit_first_job.py)</li>
+                        <li>Can wait for and capture output</li>
+                    </div>
+
+                    <div class="callout success">
+                        <strong>✓ If all 6 are checked: You're ready for Module 3.</strong>
+                    </div>
+                </div>
+
+                <div class="section text-center mt-20">
+                    <button class="btn secondary" onclick="switchModule(0)">← Back: Beginners</button>
+                    <button class="btn" onclick="switchModule(2)">Next: Job Automation →</button>
+                </div>
+            </div>
+
+            <!-- Module 3: Job Automation Deep Dive -->
+            <div class="module" id="module-2">
+                <div class="module-header">
+                    <h2>Module 3: Job Automation & Advanced Patterns</h2>
+                    <div class="module-meta">
+                        <span class="meta-item"><span class="badge intermediate">Intermediate</span></span>
+                        <span class="meta-item">⏱️ 45 minutes</span>
+                        <span class="meta-item">🎯 Build production pipelines</span>
+                    </div>
+                </div>
+
+                <div class="callout tip">
+                    <strong>💡 What You'll Learn:</strong> Retry logic, job pipelines, parallel execution, and production-ready error handling.
+                </div>
+
+                <div class="section">
+                    <h3>The Problems ZOAU Solves</h3>
+
+                    <h4>Scenario 1: Manual Job Management</h4>
+                    <p><strong>Old Way:</strong> 3 AM emergency → SSH to mainframe → check job queue manually → submit recovery job → wait 20 minutes → email the team = 2 hours of your life.</p>
+                    
+                    <div class="highlight"><strong>ZOAU Way:</strong> Set it and forget it. Automatic retry. Slack notification. Done in 30 seconds.</div>
+
+                    <h4>Scenario 2: Multi-Step Dependencies</h4>
+                    <p><strong>Old Way:</strong> 12 jobs every Friday. Each depends on previous. One fails? Restart everything manually.</p>
+                    
+                    <div class="highlight"><strong>ZOAU Way:</strong> Write once. Chain dependencies. Auto-retry failed steps. Run unattended.</div>
+                </div>
+
+                <div class="section">
+                    <h3>Lesson 1: Retry Logic (Resilience)</h3>
+
+                    <div class="code-block"><code>#!/usr/bin/env python3
+def submit_with_retry(jcl_text, max_retries=3, retry_delay=30):
+    """Submit a job with automatic retry on failure"""
+    for attempt in range(1, max_retries + 1):
+        try:
+            print(f"Attempt {attempt}/{max_retries}: Submitting...")
+            job_id = MVSCmd.submit_job(jcl_text)
+            
+            status = Jobs.wait_for_job(job_id, max_wait_time=600)
+            
+            if status == 'CC 0':
+                print(f"✓ Job succeeded on attempt {attempt}")
+                return job_id, status
+            elif status == 'CC 4':
+                # Warning but recoverable
+                return job_id, status
+            else:
+                # Hard failure, retry
+                print(f"✗ Job failed with {status}. Retrying...")
+                if attempt < max_retries:
+                    time.sleep(retry_delay)
+                else:
+                    raise Exception(f"Job failed after {max_retries} attempts")
+                    
+        except Exception as e:
+            print(f"✗ Exception: {e}")
+            if attempt < max_retries:
+                time.sleep(retry_delay)
+            else:
+                raise</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ Real Impact:</strong> Transient failures (network glitches, locks) now self-heal automatically. Your 3 AM job doesn't wake you up.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Lesson 2: Job Pipelines (Orchestration)</h3>
+
+                    <p>Multi-step workflows where each step depends on the previous one succeeding.</p>
+
+                    <div class="code-block"><code>#!/usr/bin/env python3
+def run_pipeline():
+    """Data pipeline: Extract → Transform → Load → Validate"""
+    
+    jobs = {}
+    
+    # STEP 1: Extract
+    print("[STEP 1] Extracting...")
+    extract_jcl = """//EXTRACT JOB (ACCT),'EXTRACT'..."""
+    jobs['extract'] = MVSCmd.submit_job(extract_jcl)
+    status = Jobs.wait_for_job(jobs['extract'], max_wait_time=300)
+    if status != 'CC 0':
+        print(f"✗ Extract failed: {status}")
+        return False
+    print(f"✓ Extract complete")
+    
+    # STEP 2: Transform
+    print("[STEP 2] Transforming...")
+    transform_jcl = """//TRANSFORM JOB (ACCT),'TRANSFORM'..."""
+    jobs['transform'] = MVSCmd.submit_job(transform_jcl)
+    status = Jobs.wait_for_job(jobs['transform'], max_wait_time=300)
+    if status != 'CC 0':
+        print(f"✗ Transform failed")
+        return False
+    print(f"✓ Transform complete")
+    
+    # STEP 3: Load
+    print("[STEP 3] Loading...")
+    load_jcl = """//LOAD JOB (ACCT),'LOAD'..."""
+    jobs['load'] = MVSCmd.submit_job(load_jcl)
+    status = Jobs.wait_for_job(jobs['load'], max_wait_time=600)
+    if status != 'CC 0':
+        return False
+    print(f"✓ Load complete")
+    
+    return True</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ Impact:</strong> Your Friday 12-job sequence now runs unattended, reliably, overnight.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Lesson 3: Parallel Execution (Speed)</h3>
+
+                    <p>Run independent jobs simultaneously to cut processing time in half.</p>
+
+                    <div class="code-block"><code>#!/usr/bin/env python3
+from concurrent.futures import ThreadPoolExecutor
+
+# Without parallelism: 10 jobs × 5 min = 50 minutes
+# With parallelism: 5 concurrent × 5 min = ~25 minutes
+
+with ThreadPoolExecutor(max_workers=5) as executor:
+    futures = {
+        executor.submit(run_job, region): region
+        for region in ['EAST', 'WEST', 'NORTH', 'SOUTH', 'CENTRAL']
+    }
+    
+    for future in as_completed(futures):
+        region = futures[future]
+        result = future.result()
+        print(f"✓ {region}: {result}")</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ Impact:</strong> Daily data processing that took 2 hours now takes 45 minutes.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Lesson 4: Alerts & Notifications</h3>
+
+                    <p>Get notified when things break (before your boss calls).</p>
+
+                    <div class="code-block"><code>#!/usr/bin/env python3
+def send_slack_alert(message, severity='error'):
+    webhook_url = os.environ.get('SLACK_WEBHOOK_URL')
+    payload = {
+        'attachments': [{
+            'color': 'danger' if severity == 'error' else 'warning',
+            'title': 'Mainframe Alert',
+            'text': message
+        }]
+    }
+    requests.post(webhook_url, json=payload)
+
+# Use it
+if status != 'CC 0':
+    send_slack_alert(f"Job {job_id} failed with {status}", severity='error')
+else:
+    send_slack_alert(f"Job {job_id} succeeded", severity='info')</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ Impact:</strong> You sleep. Your automation stays awake and alerts you when needed.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Key Patterns Summary</h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Pattern</th>
+                                <th>Use Case</th>
+                                <th>Code Example</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Wait for Job</strong></td>
+                                <td>Block until completion</td>
+                                <td><code>Jobs.wait_for_job(job_id, timeout=300)</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Retry Logic</strong></td>
+                                <td>Resilient to failures</td>
+                                <td><code>for attempt in range(max_retries):</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pipelines</strong></td>
+                                <td>Multi-step workflows</td>
+                                <td>Sequential job execution</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Parallelism</strong></td>
+                                <td>Speed optimization</td>
+                                <td><code>ThreadPoolExecutor(max_workers=5)</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Alerting</strong></td>
+                                <td>Monitoring & visibility</td>
+                                <td>Slack/email on failure</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section text-center mt-20">
+                    <button class="btn secondary" onclick="switchModule(1)">← Back: Day 1</button>
+                    <button class="btn" onclick="switchModule(3)">Next: Data Handling →</button>
+                </div>
+            </div>
+
+            <!-- Module 4: Data Handling -->
+            <div class="module" id="module-3">
+                <div class="module-header">
+                    <h2>Module 4: Data Handling - EBCDIC to Pandas</h2>
+                    <div class="module-meta">
+                        <span class="meta-item"><span class="badge intermediate">Intermediate</span></span>
+                        <span class="meta-item">⏱️ 40 minutes</span>
+                        <span class="meta-item">🎯 Unlock mainframe data for analytics</span>
+                    </div>
+                </div>
+
+                <div class="callout warning">
+                    <strong>⚡ The Problem:</strong> Your mainframe has 50 years of business data. Your analytics tools speak Python/pandas. They don't understand each other. ZOAU is the bridge.
+                </div>
+
+                <div class="section">
+                    <h3>Understanding the Gap: EBCDIC vs ASCII</h3>
+
+                    <h4>What's EBCDIC?</h4>
+                    <p>EBCDIC (Extended Binary Coded Decimal Interchange Code) is how mainframes store text.</p>
+
+                    <div class="code-block"><code>Mainframe data:     c7 93 96 84 (EBCDIC bytes)
+What it means:      G  O  O  D  (ASCII text)
+What you see:       ☒ ☓ ☓ ← (gibberish if you don't decode)</code></div>
+
+                    <div class="callout info">
+                        <strong>📌 Why It Matters:</strong> If you read mainframe data without converting it, you get garbage. Pandas can't analyze garbage.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Step 1: Read Mainframe Data</h3>
+
+                    <div class="code-block"><code>from zoau import Datasets
+from zoau.encoding import ebcdic_to_ascii
+
+dataset_name = 'MYUSER.CUSTOMER.DATA'
+
+# Read raw EBCDIC records
+raw_records = Datasets.read(dataset_name)
+
+print(f"Read {len(raw_records)} records")
+print(f"First record (raw): {raw_records[0]}")  # Looks like garbage</code></div>
+
+                    <p>✓ <strong>Result:</strong> Raw EBCDIC bytes. Not human-readable yet.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Step 2: Understand Record Layout</h3>
+
+                    <p>Mainframe datasets have <strong>fixed-width records</strong>. You need to know the layout.</p>
+
+                    <div class="code-block"><code># Example: Customer dataset layout
+RECORD_LAYOUT = {
+    'customer_id': (0, 10),      # bytes 0-10
+    'name': (10, 40),             # bytes 10-40
+    'phone': (40, 50),            # bytes 40-50
+    'email': (50, 70),            # bytes 50-70
+    'status': (70, 80)            # bytes 70-80
+}</code></div>
+
+                    <div class="callout tip">
+                        <strong>💡 Tip:</strong> Ask your mainframe team for the COBOL copybook. It defines these exact positions.
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Step 3: Convert & Parse Data</h3>
+
+                    <div class="code-block"><code>#!/usr/bin/env python3
+from zoau import Datasets
+from zoau.encoding import ebcdic_to_ascii
+import pandas as pd
+
+RECORD_LAYOUT = {
+    'customer_id': (0, 10),
+    'name': (10, 40),
+    'phone': (40, 50),
+    'email': (50, 70),
+    'status': (70, 80)
+}
+
+# Read raw data
+raw_records = Datasets.read('MYUSER.CUSTOMER.DATA')
+
+# Convert and parse
+parsed_records = []
+for raw_record in raw_records:
+    # Convert EBCDIC → ASCII
+    ascii_record = ebcdic_to_ascii(raw_record)
+    
+    # Parse fixed-width fields
+    parsed = {}
+    for field_name, (start, end) in RECORD_LAYOUT.items():
+        value = ascii_record[start:end].strip()
+        parsed[field_name] = value
+    
+    parsed_records.append(parsed)
+
+# Load into pandas
+df = pd.DataFrame(parsed_records)
+print(df.head())</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ You now have a pandas DataFrame with readable data!</strong>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Step 4: Clean & Validate Data</h3>
+
+                    <div class="code-block"><code>#!/usr/bin/env python3
+import pandas as pd
+
+# ... [previous code to load data into df] ...
+
+# Cleaning steps
+df['name'] = df['name'].str.strip().str.title()
+df['email'] = df['email'].str.strip().str.lower()
+df['status'] = df['status'].replace({'A': 'Active', 'I': 'Inactive'})
+
+# Remove invalid records
+df = df[df['email'].str.contains('@', na=False)]
+
+# Print summary
+print(f"Total records: {len(df)}")
+print(f"Status breakdown:\n{df['status'].value_counts()}")</code></div>
+
+                    <p>✓ <strong>Result:</strong> Clean, standardized data ready for analysis.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Step 5: Analyze & Export</h3>
+
+                    <h4>Basic Analytics</h4>
+                    <div class="code-block"><code"># Analyze
+active_pct = (df['status'] == 'Active').sum() / len(df) * 100
+print(f"Active customers: {active_pct:.1f}%")
+
+# Email domains
+df['domain'] = df['email'].str.extract(r'@(.+)$')
+print(df['domain'].value_counts().head(10))</code></div>
+
+                    <h4>Export to Multiple Formats</h4>
+                    <div class="code-block"><code"># CSV (Excel-friendly)
+df.to_csv('customers.csv', index=False)
+
+# JSON (APIs)
+df.to_json('customers.json', orient='records')
+
+# Parquet (big data)
+df.to_parquet('customers.parquet', index=False)
+
+# Cloud (BigQuery, S3, etc.)
+# See Module 4 extended content for cloud integration</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ Your mainframe data is now in modern formats, ready for analytics and cloud.</strong>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Real-World Impact</h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Before ZOAU</th>
+                                <th>After ZOAU</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Extract customer data</td>
+                                <td>Manual COBOL job + pray</td>
+                                <td>Python script (50 lines)</td>
+                            </tr>
+                            <tr>
+                                <td>Analyze trends</td>
+                                <td>Limited mainframe reports</td>
+                                <td>Full pandas analytics</td>
+                            </tr>
+                            <tr>
+                                <td>Share with cloud team</td>
+                                <td>FTP file + manual parsing</td>
+                                <td>Parquet to S3 (automatic)</td>
+                            </tr>
+                            <tr>
+                                <td>Real-time BI queries</td>
+                                <td>Impossible</td>
+                                <td>Push to BigQuery nightly</td>
+                            </tr>
+                            <tr>
+                                <td>Data quality checks</td>
+                                <td>Manual spot-checks</td>
+                                <td>Automated validation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section text-center mt-20">
+                    <button class="btn secondary" onclick="switchModule(2)">← Back: Job Automation</button>
+                    <button class="btn" onclick="switchModule(4)">Next: What's Next →</button>
+                </div>
+            </div>
+
+            <!-- Module 5: What's Next -->
+            <div class="module" id="module-4">
+                <div class="module-header">
+                    <h2>Module 5: Your Next Steps & Resources</h2>
+                    <div class="module-meta">
+                        <span class="meta-item"><span class="badge beginner">All Levels</span></span>
+                        <span class="meta-item">🎯 Plan your learning journey</span>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>You've Completed the Foundations</h3>
+                    
+                    <div class="learning-path">
+                        <div class="path-step active">1. Intro ✓</div>
+                        <div class="path-arrow">→</div>
+                        <div class="path-step active">2. Hands-On ✓</div>
+                        <div class="path-arrow">→</div>
+                        <div class="path-step active">3. Automation ✓</div>
+                        <div class="path-arrow">→</div>
+                        <div class="path-step active">4. Data ✓</div>
+                        <div class="path-arrow">→</div>
+                        <div class="path-step active">5. You Are Here</div>
+                    </div>
+
+                    <div class="callout success">
+                        <strong>✓ Congratulations!</strong> You understand ZOAU fundamentals and can:
+                        <ul style="margin-top: 10px;">
+                            <li>Submit and monitor JCL jobs</li>
+                            <li>Build multi-step pipelines</li>
+                            <li>Extract and analyze mainframe data</li>
+                            <li>Set up alerts and monitoring</li>
+                            <li>Handle errors and retries gracefully</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>Your Immediate Next Steps (This Week)</h3>
+
+                    <div class="checklist">
+                        <li><strong>Pick one repetitive task</strong> on your mainframe that wastes time</li>
+                        <li><strong>Automate it with ZOAU</strong> (use Module 3 patterns)</li>
+                        <li><strong>Test it thoroughly</strong> before production</li>
+                        <li><strong>Run it daily/weekly</strong> and measure time saved</li>
+                        <li><strong>Document what you built</strong> for the team</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h3>Advanced Topics to Explore</h3>
+
+                    <h4>1. REST API for Mainframe Access</h4>
+                    <p>Make ZOAU accessible to non-Python people. Build a web API that wraps your ZOAU scripts.</p>
+                    <p><strong>Benefits:</strong> Your whole team can trigger mainframe operations from a web UI. No Python knowledge needed.</p>
+
+                    <h4>2. Real-Time Streaming (Kafka)</h4>
+                    <p>Move beyond batch. Stream mainframe changes to Kafka, then to cloud data warehouses.</p>
+                    <p><strong>Benefits:</strong> Real-time dashboards. Live analytics. Change Data Capture (CDC).</p>
+
+                    <h4>3. Kubernetes & Containerization</h4>
+                    <p>Package your ZOAU scripts in Docker containers. Deploy and scale with Kubernetes.</p>
+                    <p><strong>Benefits:</strong> Cloud-native automation. Easy scaling. CI/CD integration.</p>
+
+                    <h4>4. Testing & CI/CD</h4>
+                    <p>Build a test harness for mainframe automation. Integrate with GitHub Actions or Jenkins.</p>
+                    <p><strong>Benefits:</strong> Safe deployments. Automated testing before production. Rollback capability.</p>
+
+                    <h4>5. Cloud Integration</h4>
+                    <p>Send mainframe data to AWS S3, Azure Data Lake, Google BigQuery.</p>
+                    <p><strong>Benefits:</strong> Hybrid cloud architecture. Unified analytics. Cost optimization.</p>
+                </div>
+
+                <div class="section">
+                    <h3>Resources & Documentation</h3>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Resource</th>
+                                <th>Type</th>
+                                <th>Use For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ZOAU Official Docs</td>
+                                <td>Documentation</td>
+                                <td>Complete API reference</td>
+                            </tr>
+                            <tr>
+                                <td>Python Docs</td>
+                                <td>Documentation</td>
+                                <td>General Python questions</td>
+                            </tr>
+                            <tr>
+                                <td>Pandas Docs</td>
+                                <td>Documentation</td>
+                                <td>Data manipulation & analysis</td>
+                            </tr>
+                            <tr>
+                                <td>IBM z/OS Fundamentals</td>
+                                <td>Learning</td>
+                                <td>Mainframe concepts (free on IBM Learning)</td>
+                            </tr>
+                            <tr>
+                                <td>Rocket Software Community</td>
+                                <td>Community</td>
+                                <td>ZOAU user forums & support</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section">
+                    <h3>Pro Tips for Success</h3>
+
+                    <h4>Tip 1: Version Control Your Scripts</h4>
+                    <div class="code-block"><code>git init ~/mainframe-automation
+git add ~/my_zoau_script.py
+git commit -m "First ZOAU automation"</code></div>
+
+                    <h4>Tip 2: Add Logging Early</h4>
+                    <div class="code-block"><code>import logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+logger.info("Job submitted")</code></div>
+
+                    <h4>Tip 3: Test in Non-Prod First</h4>
+                    <p>Use test datasets (<code>MYUSER.TEMP.*</code>) before touching production data.</p>
+
+                    <h4>Tip 4: Document Record Layouts</h4>
+                    <div class="code-block"><code"># Keep this with your code
+RECORD_LAYOUT = {
+    'customer_id': (0, 10),    # Assigned by mainframe
+    'name': (10, 40),          # Customer name (padded)
+    'phone': (40, 50),         # Contact phone
+    'email': (50, 70),         # Email (may be blank)
+    'status': (70, 80)         # A=Active, I=Inactive
+}</code></div>
+
+                    <h4>Tip 5: Automate with Cron</h4>
+                    <div class="code-block"><code># Run daily at 2 AM
+0 2 * * * /usr/bin/python3 /home/user/my_script.py >> /var/log/script.log 2>&1</code></div>
+                </div>
+
+                <div class="section">
+                    <h3>Sample Project Ideas</h3>
+
+                    <h4>Project 1: Daily Customer Export</h4>
+                    <p><strong>What:</strong> Extract customer data from mainframe, clean it, export to CSV for Excel team.</p>
+                    <p><strong>Learning:</strong> Data handling, cleaning, scheduling</p>
+                    <p><strong>Time:</strong> 2-3 hours</p>
+
+                    <h4>Project 2: Automated Batch Monitoring</h4>
+                    <p><strong>What:</strong> Monitor nightly batch jobs, send alerts when one fails, auto-retry if needed.</p>
+                    <p><strong>Learning:</strong> Job automation, alerting, resilience</p>
+                    <p><strong>Time:</strong> 3-4 hours</p>
+
+                    <h4>Project 3: Data Pipeline with Validation</h4>
+                    <p><strong>What:</strong> Extract → Transform → Load → Validate. Each step checks previous one succeeded.</p>
+                    <p><strong>Learning:</strong> Pipelines, error handling, logging</p>
+                    <p><strong>Time:</strong> 4-6 hours</p>
+
+                    <h4>Project 4: REST API Wrapper</h4>
+                    <p><strong>What:</strong> Build a FastAPI endpoint that wraps a ZOAU script. Non-Python users can trigger it via web UI.</p>
+                    <p><strong>Learning:</strong> APIs, web frameworks, accessibility</p>
+                    <p><strong>Time:</strong> 6-8 hours</p>
+                </div>
+
+                <div class="section">
+                    <h3>When You Get Stuck</h3>
+
+                    <div class="callout warning">
+                        <strong>🆘 Common Issues:</strong>
+                        <ul style="margin-top: 10px;">
+                            <li><strong>EBCDIC conversion errors:</strong> Check record length matches expected layout</li>
+                            <li><strong>Job timeout:</strong> Increase <code>max_wait_time</code> or check job queue depth</li>
+                            <li><strong>Dataset not found:</strong> Verify dataset exists with <code>tsocmd "LISTCAT"</code></li>
+                            <li><strong>Permission denied:</strong> Ask mainframe admin for JCL submit rights</li>
+                            <li><strong>Memory errors:</strong> Process data in chunks instead of all at once</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>The Bigger Picture</h3>
+
+                    <p>ZOAU is your bridge to modernizing mainframe operations. You're not replacing the mainframe—you're making it talk to the rest of your world:</p>
+
+                    <div class="code-block"><code>Mainframe Data (EBCDIC)
+        ↓
+ZOAU (Python)
+        ↓
+Pandas / Cloud / APIs / BI Tools / Kafka
+        ↓
+Modern Analytics & DevOps</code></div>
+
+                    <div class="callout success">
+                        <strong>✓ The Opportunity:</strong> Most teams still manage mainframes manually. You're about to automate it. That's a competitive advantage.
+                    </div>
+                </div>
+
+                <div class="section text-center mt-20">
+                    <h3>Ready to Start?</h3>
+                    <p style="font-size: 1.1em; margin-bottom: 20px;">Pick one task. Automate it. Show your team what's possible.</p>
+                    <button class="btn success" onclick="window.print()">📥 Download / Print This Guide</button>
+                    <button class="btn secondary" onclick="switchModule(0)">↑ Back to Top</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>ZOAU Complete Learning Package</strong></p>
+        <p>A comprehensive guide from beginners to advanced mainframe automation with Python</p>
+        <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9em;">© 2026 | Updated September 29, 2026 | Self-contained learning resource</p>
+    </footer>
+
+    <script>
+        function switchModule(moduleIndex) {
+            // Hide all modules
+            const modules = document.querySelectorAll('.module');
+            modules.forEach(m => m.classList.remove('active'));
+
+            // Show selected module
+            const moduleId = `module-${moduleIndex}`;
+            const selectedModule = document.getElementById(moduleId);
+            if (selectedModule) {
+                selectedModule.classList.add('active');
+            }
+
+            // Update nav links
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach((link, index) => {
+                if (index === moduleIndex) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Update progress dots
+            const progressDots = document.querySelectorAll('.progress-dot');
+            progressDots.forEach((dot, index) => {
+                if (index === moduleIndex) {
+                    dot.classList.add('active');
+                } else {
+                    dot.classList.remove('active');
+                }
+            });
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const currentActive = document.querySelector('.nav-link.active');
+            let currentIndex = Array.from(navLinks).indexOf(currentActive);
+
+            if (e.key === 'ArrowRight' && currentIndex < navLinks.length - 1) {
+                switchModule(currentIndex + 1);
+            } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+                switchModule(currentIndex - 1);
+            }
+        });
+    </script>
+</body>
+</html>
